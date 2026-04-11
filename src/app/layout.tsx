@@ -4,67 +4,69 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
-  variable: "--font-sans",
-  subsets: ["latin"],
+    variable: "--font-sans",
+    subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+    variable: "--font-geist-mono",
+    subsets: ["latin"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
+    variable: "--font-mono",
+    subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "GreenStatesBD",
-  description:
-    "Modern real estate bidding platform with AI & realtime features",
-  icons: {
-    icon: "/logo.png",
-  },
+    title: "GreenStatesBD",
+    description:
+        "Modern real estate bidding platform with AI & realtime features",
+    icons: {
+        icon: "/logo.png",
+    },
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-  return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn(
-        "h-full",
-        "antialiased",
-        geistSans.variable,
-        geistMono.variable,
-        jetbrainsMono.variable
-      )}
-    >
-      <body
-        className={cn(
-          "min-h-screen",
-          "bg-background",
-          "text-foreground",
-          "font-sans"
-        )}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+    return (
+        <html
+            lang="en"
+            suppressHydrationWarning
+            className={cn(
+                "h-full",
+                "antialiased",
+                geistSans.variable,
+                geistMono.variable,
+                jetbrainsMono.variable
+            )}
         >
-          {children}
+            <Analytics />
+            <body
+                className={cn(
+                    "min-h-screen",
+                    "bg-background",
+                    "text-foreground",
+                    "font-sans"
+                )}
+            >
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    {children}
 
-          <Toaster richColors position="top-right" />
-        </ThemeProvider>
-      </body>
-    </html>
-  );
+                    <Toaster richColors position="top-right" />
+                </ThemeProvider>
+            </body>
+        </html>
+    );
 }

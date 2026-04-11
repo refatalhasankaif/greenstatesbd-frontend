@@ -50,10 +50,13 @@ const Navbar = ({ className }: { className?: string }) => {
             icon: <Home size={16} />,
             items: [
                 { title: "Hero", url: "/#hero" },
-                { title: "Featured", url: "/#featured" },
-                { title: "How it Works", url: "/#how-it-works" },
-                { title: "Gallery", url: "/#gallery" },
-                { title: "Blogs", url: "/#blogs" },
+                { title: "Our Services", url: "/#service" },
+                { title: "Property Showcase", url: "/#showcase" },
+                { title: "Why Trust Us", url: "/#why-trust-us" },
+                { title: "Certification", url: "/#certification" },
+                { title: "Our Service Area", url: "/#service-area" },
+                { title: "About Us", url: "/#about" },
+                { title: "Frequently Asked Questions", url: "/#faq" },
             ],
         },
         {
@@ -68,8 +71,8 @@ const Navbar = ({ className }: { className?: string }) => {
             title: "AI",
             icon: <Sparkles size={16} />,
             items: [
-                { title: "AI Chat", url: "/ai/chat" },
-                { title: "Voice Assistant", url: "/ai/voice" },
+                { title: "AI Chat", url: "/ai" },
+                { title: "Voice Assistant", url: "/voice-assistant" },
             ],
         },
         {
