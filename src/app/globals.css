@@ -130,4 +130,12 @@
         @apply font-sans;
         scroll-behavior: smooth;
     }
+
+    .input {
+        @apply w-full border rounded-md px-3 py-2;
+    }
+
+    .btn {
+        @apply bg-primary text-white rounded-md py-2;
+    }
 }
