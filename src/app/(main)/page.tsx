@@ -9,7 +9,6 @@ import WhyUs from '@/components/home/whyUs';
 import React from 'react';
 
 const page = async () => {
-    await new Promise((res) => setTimeout(res, 1200))
     return (
         <div>
             <Hero />

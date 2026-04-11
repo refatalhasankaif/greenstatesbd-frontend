@@ -5,6 +5,9 @@ import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import InitialLoader from "@/components/ui/initial-loader";
+
 
 const geistSans = Geist({
     variable: "--font-sans",
@@ -48,6 +51,7 @@ export default function RootLayout({
             )}
         >
             <Analytics />
+            <SpeedInsights />
             <body
                 className={cn(
                     "min-h-screen",
@@ -62,7 +66,9 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
-                    {children}
+                    <InitialLoader>
+                        {children}
+                    </InitialLoader>
 
                     <Toaster richColors position="top-right" />
                 </ThemeProvider>
