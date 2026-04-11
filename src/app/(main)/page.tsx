@@ -8,17 +8,18 @@ import Video from '@/components/home/video';
 import WhyUs from '@/components/home/whyUs';
 import React from 'react';
 
-const page = () => {
+const page = async () => {
+    await new Promise((res) => setTimeout(res, 1200))
     return (
         <div>
-            <Hero/>
-            <Services/>
-            <Video/>
-            <WhyUs/>
+            <Hero />
+            <Services />
+            <Video />
+            <WhyUs />
             <Certification />
-            <OurServiceArea/>
-            <AboutSection/>
-            <FaqSection/>
+            <OurServiceArea />
+            <AboutSection />
+            <FaqSection />
         </div>
     );
 };
