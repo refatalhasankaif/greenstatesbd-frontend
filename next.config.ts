@@ -4,11 +4,15 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "lh3.googleusercontent.com", // Google profile images
+        hostname: "res.cloudinary.com",
       },
       {
         protocol: "https",
-        hostname: "pbs.twimg.com", // Twitter/X profile images
+        hostname: "lh3.googleusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "pbs.twimg.com",
       },
     ],
   },
