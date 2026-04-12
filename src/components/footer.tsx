@@ -9,54 +9,54 @@ const footerLinks = [
     {
         heading: "Home",
         links: [
-            { label: "Hero",                      href: "/#hero" },
-            { label: "Our Services",              href: "/#service" },
-            { label: "Property Showcase",         href: "/#showcase" },
-            { label: "Why Trust Us",              href: "/#why-trust-us" },
-            { label: "Certification",             href: "/#certification" },
-            { label: "Our Service Area",          href: "/#service-area" },
-            { label: "About Us",                  href: "/#about" },
-            { label: "FAQ",                       href: "/#faq" },
+            { label: "Hero", href: "/#hero" },
+            { label: "Our Services", href: "/#service" },
+            { label: "Property Showcase", href: "/#showcase" },
+            { label: "Why Trust Us", href: "/#why-trust-us" },
+            { label: "Certification", href: "/#certification" },
+            { label: "Our Service Area", href: "/#service-area" },
+            { label: "About Us", href: "/#about" },
+            { label: "FAQ", href: "/#faq" },
         ],
     },
     {
         heading: "Explore",
         links: [
-            { label: "All Properties",   href: "/properties" },
-            { label: "Gallery",          href: "/gallery" },
-            { label: "Blogs",            href: "/blogs" },
-            { label: "AI Chat",          href: "/ai" },
-            { label: "Voice Assistant",  href: "/voice-assistant" },
-            { label: "Dashboard",        href: "/dashboard" },
-            { label: "Support",          href: "/support" },
+            { label: "All Properties", href: "/properties" },
+            { label: "Gallery", href: "/gallery" },
+            { label: "Blogs", href: "/blogs" },
+            { label: "AI Chat", href: "/ai" },
+            { label: "Dashboard", href: "/dashboard" },
+            { label: "Support", href: "/support" },
+            { label: "Profile", href: "/profile" },
         ],
     },
     {
         heading: "Legal",
         links: [
-            { label: "Privacy Policy",   href: "/privacy-policy" },
+            { label: "Privacy Policy", href: "/privacy-policy" },
             { label: "Terms of Service", href: "/terms" },
-            { label: "Cookie Policy",    href: "/cookie-policy" },
-            { label: "Refund Policy",    href: "/refund-policy" },
-            { label: "Disclaimer",       href: "/disclaimer" },
-            { label: "Contact Us",       href: "/contact" },
+            { label: "Cookie Policy", href: "/cookie-policy" },
+            { label: "Refund Policy", href: "/refund-policy" },
+            { label: "Disclaimer", href: "/disclaimer" },
+            { label: "Contact Us", href: "/contact" },
         ],
     },
 ];
 
 const socials = [
-    { icon: FaFacebook,  label: "Facebook",  href: "https://facebook.com/greenstatesbd" },
+    { icon: FaFacebook, label: "Facebook", href: "https://facebook.com/greenstatesbd" },
     { icon: FaInstagram, label: "Instagram", href: "https://instagram.com/greenstatesbd" },
-    { icon: FaYoutube,   label: "YouTube",   href: "https://youtube.com/@greenstatesbd" },
-    { icon: FaXTwitter,  label: "X/Twitter", href: "https://x.com/greenstatesbd" },
-    { icon: FaGithub,    label: "GitHub",    href: "https://github.com/greenstatesbd" },
-    { icon: FaLinkedin,  label: "LinkedIn",  href: "https://linkedin.com/company/greenstatesbd" },
+    { icon: FaYoutube, label: "YouTube", href: "https://youtube.com/@greenstatesbd" },
+    { icon: FaXTwitter, label: "X/Twitter", href: "https://x.com/greenstatesbd" },
+    { icon: FaGithub, label: "GitHub", href: "https://github.com/greenstatesbd" },
+    { icon: FaLinkedin, label: "LinkedIn", href: "https://linkedin.com/company/greenstatesbd" },
 ];
 
 const contact = [
     { icon: MapPin, text: "Dhaka, Bangladesh" },
-    { icon: Mail,   text: "support@greenstatesbd.com",  href: "mailto:support@greenstatesbd.com" },
-    { icon: Phone,  text: "+880 1700-000000",            href: "tel:+8801700000000" },
+    { icon: Mail, text: "support@greenstatesbd.com", href: "mailto:support@greenstatesbd.com" },
+    { icon: Phone, text: "+880 1700-000000", href: "tel:+8801700000000" },
 ];
 
 const Footer = () => {
@@ -156,7 +156,7 @@ const Footer = () => {
 
             {/* ── BOTTOM BAR ── */}
             <div className="border-t border-border">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-center">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-center">
                     <p className="text-xs text-muted-foreground text-center">
                         &copy; {new Date().getFullYear()} GreenStatesBD. All rights reserved.
                     </p>

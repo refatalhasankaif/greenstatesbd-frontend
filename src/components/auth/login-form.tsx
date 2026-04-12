@@ -5,10 +5,16 @@ import Link from "next/link";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider, twitterProvider } from "@/lib/firebase";
 import { post } from "@/lib/api";
+import { setToken } from "@/lib/auth-token";
 import { LoginResponse } from "@/types/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+
+type FirebaseAuthError = {
+    code?: string;
+    message?: string;
+};
 
 const GoogleIcon = () => (
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
@@ -40,8 +46,7 @@ export default function LoginForm() {
                 email: form.get("email") as string,
                 password: form.get("password") as string,
             });
-            console.log("LOGIN RESPONSE:", JSON.stringify(res)); // 👈 add this
-            localStorage.setItem("token", res.data.token);
+            setToken(res.data.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
             window.location.href = "/";
         } catch (err: unknown) {
@@ -54,20 +59,32 @@ export default function LoginForm() {
     const handleSocial = async (provider: "google" | "twitter") => {
         setSocialLoading(provider);
         setError("");
+
         try {
             const p = provider === "google" ? googleProvider : twitterProvider;
+
             const result = await signInWithPopup(auth, p);
+
             const idToken = await result.user.getIdToken();
+
             const res = await post<LoginResponse>("/auth/social", {
                 idToken,
                 name: result.user.displayName,
                 profileImage: result.user.photoURL,
             });
-            localStorage.setItem("token", res.data.token);
+
+            setToken(res.data.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
+
             window.location.href = "/";
         } catch (err: unknown) {
-            setError(err instanceof Error ? err.message : "Social login failed");
+            const error = err as FirebaseAuthError;
+
+            if (error.code === "auth/popup-closed-by-user") {
+                setError("Login cancelled");
+            } else {
+                setError(error.message || "Social login failed");
+            }
         } finally {
             setSocialLoading(null);
         }
@@ -77,13 +94,11 @@ export default function LoginForm() {
 
     return (
         <div className="w-full max-w-sm mx-auto space-y-5">
-            {/* Header */}
             <div className="text-center space-y-1">
                 <h1 className="text-2xl font-semibold tracking-tight">Welcome back</h1>
                 <p className="text-sm text-muted-foreground">Sign in to your GreenStatesBD account</p>
             </div>
 
-            {/* Social */}
             <div className="grid grid-cols-2 gap-3">
                 <Button variant="outline" className="h-10 gap-2 text-sm" onClick={() => handleSocial("google")} disabled={busy}>
                     {socialLoading === "google"
@@ -105,7 +120,6 @@ export default function LoginForm() {
                 <Separator className="flex-1" />
             </div>
 
-            {/* Form */}
             <form onSubmit={handleLogin} className="space-y-4">
                 {error && (
                     <p className="text-sm text-destructive bg-destructive/10 px-3 py-2 rounded-md">{error}</p>

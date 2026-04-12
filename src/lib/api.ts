@@ -1,26 +1,31 @@
+import { getToken } from "@/lib/auth-token";
+
 export const API = process.env.NEXT_PUBLIC_API_URL;
 
 type ApiError = {
-  message?: string;
+    message?: string;
 };
 
 export const post = async <TResponse, TBody = unknown>(
-  url: string,
-  data: TBody
+    url: string,
+    data: TBody
 ): Promise<TResponse> => {
-  const res = await fetch(`${API}${url}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+    const token = getToken();
 
-  const json = (await res.json()) as TResponse & ApiError;
+    const res = await fetch(`${API}${url}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            ...(token && { Authorization: `Bearer ${token}` }),
+        },
+        body: JSON.stringify(data),
+    });
 
-  if (!res.ok) {
-    throw new Error(json.message || "Something went wrong");
-  }
+    const json = (await res.json()) as TResponse & ApiError;
 
-  return json;
+    if (!res.ok) {
+        throw new Error(json.message || "Something went wrong");
+    }
+
+    return json;
 };

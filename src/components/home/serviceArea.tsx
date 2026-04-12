@@ -78,8 +78,6 @@ const OurServiceArea = () => {
             className="w-full py-25 md:py-45 lg:py-60 px-4 sm:px-6 lg:px-8 bg-background"
         >
             <div className="max-w-6xl mx-auto">
-
-                {/* Header */}
                 <div className="text-center mb-10 md:mb-14">
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground">
                         Our Service Area
@@ -89,8 +87,6 @@ const OurServiceArea = () => {
                         fraud-protected property listings — nationwide.
                     </p>
                 </div>
-
-                {/* Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
                     {divisions.map((division) => {
                         const Icon = division.icon;

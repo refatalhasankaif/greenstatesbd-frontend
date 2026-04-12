@@ -50,9 +50,8 @@ export default function RootLayout({
                 jetbrainsMono.variable
             )}
         >
-            <Analytics />
-            <SpeedInsights />
             <body
+                suppressHydrationWarning
                 className={cn(
                     "min-h-screen",
                     "bg-background",
@@ -72,6 +71,8 @@ export default function RootLayout({
 
                     <Toaster richColors position="top-right" />
                 </ThemeProvider>
+                <Analytics />
+                <SpeedInsights />
             </body>
         </html>
     );

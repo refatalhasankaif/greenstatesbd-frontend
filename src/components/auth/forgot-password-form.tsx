@@ -20,8 +20,6 @@ export default function ForgotPasswordForm() {
         setError("");
         try {
             const actionCodeSettings: ActionCodeSettings = {
-                // Firebase will append ?oobCode=...&mode=resetPassword to this URL
-                // Your existing ResetPasswordForm already reads oobCode from searchParams ✅
                 url: `${process.env.NEXT_PUBLIC_APP_URL}/reset-password`,
                 handleCodeInApp: false,
             };
@@ -45,7 +43,6 @@ export default function ForgotPasswordForm() {
 
     return (
         <div className="w-full max-w-sm mx-auto space-y-5">
-            {/* Header */}
             <div className="text-center space-y-1">
                 <h1 className="text-2xl font-semibold tracking-tight">Reset your password</h1>
                 <p className="text-sm text-muted-foreground">

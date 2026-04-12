@@ -73,9 +73,8 @@ const FaqItem = ({
             </button>
 
             <div
-                className={`grid transition-all duration-300 ease-in-out ${
-                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                }`}
+                className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                    }`}
             >
                 <div className="overflow-hidden">
                     <p className="px-5 md:px-6 pb-5 pt-1 text-sm text-muted-foreground leading-relaxed border-t border-border">
@@ -99,7 +98,6 @@ const FaqSection = () => {
         >
             <div className="max-w-3xl mx-auto">
 
-                {/* Header */}
                 <div className="text-center mb-10 md:mb-14">
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground">
                         Frequently Asked Questions
@@ -110,7 +108,6 @@ const FaqSection = () => {
                     </p>
                 </div>
 
-                {/* FAQ List */}
                 <div className="flex flex-col gap-3">
                     {faqs.map((faq, i) => (
                         <FaqItem
@@ -122,7 +119,6 @@ const FaqSection = () => {
                     ))}
                 </div>
 
-                {/* Bottom CTA */}
                 <div className="mt-10 text-center">
                     <p className="text-sm text-muted-foreground">
                         Still have questions?{" "}

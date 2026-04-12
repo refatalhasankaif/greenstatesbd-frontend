@@ -48,8 +48,6 @@ const whyUs = () => {
     <section id="why-trust-us" className="w-full py-25 md:py-45 lg:py-60 px-4 bg-muted/30">
 
       <div className="max-w-7xl mx-auto">
-
-        {/* HEADER */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">
             Why Trust GreenStatesBD
@@ -58,8 +56,6 @@ const whyUs = () => {
             We ensure a secure, transparent, and seamless real estate experience with powerful tools and trusted processes.
           </p>
         </div>
-
-        {/* GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
           {features.map((item, i) => (
@@ -67,13 +63,10 @@ const whyUs = () => {
               key={i}
               className="group p-6 rounded-xl border bg-background hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
             >
-              
-              {/* ICON */}
+
               <div className="mb-4 w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:scale-110 transition">
                 {item.icon}
               </div>
-
-              {/* TITLE */}
               <h3 className="font-bold text-lg mb-2">
                 {item.title}
               </h3>

@@ -8,9 +8,9 @@ import { Mail, MapPin, Phone, Send, Loader2 } from "lucide-react";
 type Status = "idle" | "loading" | "success" | "error";
 
 const contactInfo = [
-    { icon: MapPin, label: "Address",  value: "Dhaka, Bangladesh" },
-    { icon: Mail,   label: "Email",    value: "support@greenstatesbd.com", href: "mailto:support@greenstatesbd.com" },
-    { icon: Phone,  label: "Phone",    value: "+880 1700-000000",           href: "tel:+8801700000000" },
+    { icon: MapPin, label: "Address", value: "Dhaka, Bangladesh" },
+    { icon: Mail, label: "Email", value: "support@greenstatesbd.com", href: "mailto:support@greenstatesbd.com" },
+    { icon: Phone, label: "Phone", value: "+880 1700-000000", href: "tel:+8801700000000" },
 ];
 
 export default function ContactPage() {
@@ -52,7 +52,6 @@ export default function ContactPage() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14">
 
-                    {/* ── CONTACT INFO ── */}
                     <div className="lg:col-span-2 flex flex-col gap-6">
                         {contactInfo.map(({ icon: Icon, label, value, href }) => (
                             <div key={label} className="flex items-start gap-4">
@@ -78,7 +77,6 @@ export default function ContactPage() {
                         ))}
                     </div>
 
-                    {/* ── FORM ── */}
                     <form
                         ref={formRef}
                         onSubmit={handleSubmit}
@@ -142,7 +140,6 @@ export default function ContactPage() {
                             />
                         </div>
 
-                        {/* Status messages */}
                         {status === "success" && (
                             <p className="text-sm text-green-600 dark:text-green-400 font-medium">
                                 Message sent successfully. We will get back to you soon.
@@ -172,7 +169,6 @@ export default function ContactPage() {
                             )}
                         </button>
                     </form>
-
                 </div>
             </div>
         </main>

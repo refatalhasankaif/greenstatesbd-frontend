@@ -5,11 +5,11 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const images = [
-    "/hero/1.jpg",
-    "/hero/2.jpg",
-    "/hero/3.jpg",
-    "/hero/4.jpg",
-    "/hero/5.jpg",
+    "/hero/1.webp",
+    "/hero/2.webp",
+    "/hero/3.webp",
+    "/hero/4.webp",
+    "/hero/5.webp",
 ];
 
 const Hero = () => {
@@ -28,7 +28,6 @@ const Hero = () => {
       id="hero"
       className="relative h-[80vh] min-h-125 w-full overflow-hidden"
     >
-      {/* BACKGROUND */}
       {images.map((img, i) => (
         <div
           key={i}
@@ -40,10 +39,8 @@ const Hero = () => {
         />
       ))}
 
-      {/* OVERLAY */}
       <div className="absolute inset-0 bg-black/50 z-10" />
 
-      {/* CONTENT */}
       <div className="relative z-20 flex h-full items-center justify-center text-center px-4">
         <div className="max-w-3xl space-y-5">
 
@@ -56,7 +53,6 @@ const Hero = () => {
             — all in one modern platform.
           </p>
 
-          {/* BUTTONS */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
             
             <Link href="/properties">
@@ -74,8 +70,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-
-      {/* SCROLL INDICATOR */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
         <div className="w-5 h-9 border-2 border-white rounded-full flex items-start justify-center p-1">
           <div className="w-1 h-2 bg-white rounded-full animate-bounce" />
