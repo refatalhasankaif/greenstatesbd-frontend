@@ -20,6 +20,7 @@ const Certification = () => {
                                 sizes="(max-width: 640px) 144px, (max-width: 768px) 160px, (max-width: 1024px) 192px, 224px"
                                 className="object-contain drop-shadow-md"
                                 priority
+                                unoptimized
                             />
                         </div>
                     </div>

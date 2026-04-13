@@ -26,8 +26,6 @@ const footerLinks = [
             { label: "Gallery", href: "/gallery" },
             { label: "Blogs", href: "/blogs" },
             { label: "AI Chat", href: "/ai" },
-            { label: "Dashboard", href: "/dashboard" },
-            { label: "Support", href: "/support" },
             { label: "Profile", href: "/profile" },
         ],
     },
@@ -77,6 +75,8 @@ const Footer = () => {
                                 width={36}
                                 height={36}
                                 className="object-contain"
+                                priority
+                                unoptimized
                             />
                             <span className="font-extrabold text-lg tracking-tight text-foreground">
                                 GreenStatesBD

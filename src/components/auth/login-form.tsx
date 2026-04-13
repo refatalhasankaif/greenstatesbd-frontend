@@ -16,6 +16,47 @@ type FirebaseAuthError = {
     message?: string;
 };
 
+type Role = "USER" | "MANAGER" | "ADMIN" | "MODERATOR";
+
+const DEMO_ROLES: { role: Role; label: string; email: string; password: string; color: string; bg: string; border: string }[] = [
+    {
+        role: "USER",
+        label: "User",
+        email: "user@gsbd.com",
+        password: "User@1234",
+        color: "text-sky-600 dark:text-sky-400",
+        bg: "bg-sky-50 dark:bg-sky-950/40",
+        border: "border-sky-200 dark:border-sky-800 hover:border-sky-400 dark:hover:border-sky-500",
+    },
+    {
+        role: "MANAGER",
+        label: "Manager",
+        email: "manager@gsbd.com",
+        password: "Manager@1234",
+        color: "text-violet-600 dark:text-violet-400",
+        bg: "bg-violet-50 dark:bg-violet-950/40",
+        border: "border-violet-200 dark:border-violet-800 hover:border-violet-400 dark:hover:border-violet-500",
+    },
+    {
+        role: "ADMIN",
+        label: "Admin",
+        email: "admin@gsbd.com",
+        password: "Admin@1234",
+        color: "text-rose-600 dark:text-rose-400",
+        bg: "bg-rose-50 dark:bg-rose-950/40",
+        border: "border-rose-200 dark:border-rose-800 hover:border-rose-400 dark:hover:border-rose-500",
+    },
+    {
+        role: "MODERATOR",
+        label: "Moderator",
+        email: "moderator@gsbd.com",
+        password: "Moderator@1234",
+        color: "text-emerald-600 dark:text-emerald-400",
+        bg: "bg-emerald-50 dark:bg-emerald-950/40",
+        border: "border-emerald-200 dark:border-emerald-800 hover:border-emerald-400 dark:hover:border-emerald-500",
+    },
+];
+
 const GoogleIcon = () => (
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -35,20 +76,31 @@ export default function LoginForm() {
     const [loading, setLoading] = useState(false);
     const [socialLoading, setSocialLoading] = useState<"google" | "twitter" | null>(null);
     const [error, setError] = useState("");
+    const [activeDemo, setActiveDemo] = useState<Role | null>(null);
+
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const fillDemo = (role: Role) => {
+        const demo = DEMO_ROLES.find((r) => r.role === role)!;
+        setEmail(demo.email);
+        setPassword(demo.password);
+        setActiveDemo(role);
+        setError("");
+    };
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
         setError("");
-        const form = new FormData(e.currentTarget);
         try {
-            const res = await post<LoginResponse>("/auth/login", {
-                email: form.get("email") as string,
-                password: form.get("password") as string,
-            });
+            const res = await post<LoginResponse>("/auth/login", { email, password });
             setToken(res.data.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
-            window.location.href = "/";
+
+            const isAdmin = ["ADMIN", "MANAGER", "MODERATOR", "SUPPORT_AGENT"].includes(res.data.user.role);
+            window.location.href = isAdmin ? "/dashboard" : "/";
         } catch (err: unknown) {
             setError(err instanceof Error ? err.message : "Invalid email or password");
         } finally {
@@ -62,11 +114,8 @@ export default function LoginForm() {
 
         try {
             const p = provider === "google" ? googleProvider : twitterProvider;
-
             const result = await signInWithPopup(auth, p);
-
             const idToken = await result.user.getIdToken();
-
             const res = await post<LoginResponse>("/auth/social", {
                 idToken,
                 name: result.user.displayName,
@@ -76,10 +125,11 @@ export default function LoginForm() {
             setToken(res.data.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
 
-            window.location.href = "/";
+
+            const isAdmin = ["ADMIN", "MANAGER", "MODERATOR", "SUPPORT_AGENT"].includes(res.data.user.role);
+            window.location.href = isAdmin ? "/dashboard" : "/";
         } catch (err: unknown) {
             const error = err as FirebaseAuthError;
-
             if (error.code === "auth/popup-closed-by-user") {
                 setError("Login cancelled");
             } else {
@@ -97,6 +147,41 @@ export default function LoginForm() {
             <div className="text-center space-y-1">
                 <h1 className="text-2xl font-semibold tracking-tight">Welcome back</h1>
                 <p className="text-sm text-muted-foreground">Sign in to your GreenStatesBD account</p>
+            </div>
+
+            {/* ── Demo Role Picker ── */}
+            <div className="space-y-2">
+                <p className="text-xs font-medium text-muted-foreground text-center">Try a demo account</p>
+                <div className="grid grid-cols-4 gap-2">
+                    {DEMO_ROLES.map(({ role, label, color, bg, border }) => (
+                        <button
+                            key={role}
+                            type="button"
+                            onClick={() => fillDemo(role)}
+                            disabled={busy}
+                            className={`
+                                relative flex items-center justify-center rounded-md border px-2 py-2
+                                text-xs font-semibold transition-all duration-150 cursor-pointer select-none
+                                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
+                                disabled:opacity-50 disabled:cursor-not-allowed
+                                ${bg} ${border} ${color}
+                                ${activeDemo === role
+                                    ? "ring-2 ring-current ring-offset-1 shadow-sm scale-[1.04]"
+                                    : "hover:scale-[1.02] active:scale-[0.98]"
+                                }
+                            `}
+                        >
+                            {label}
+                            {activeDemo === role && (
+                                <span className="absolute -top-1.5 -right-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-current">
+                                    <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                </span>
+                            )}
+                        </button>
+                    ))}
+                </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
@@ -126,7 +211,15 @@ export default function LoginForm() {
                 )}
                 <div className="space-y-1.5">
                     <label className="text-sm font-medium">Email</label>
-                    <Input name="email" type="email" placeholder="you@example.com" required autoComplete="email" />
+                    <Input
+                        name="email"
+                        type="email"
+                        placeholder="you@example.com"
+                        required
+                        autoComplete="email"
+                        value={email}
+                        onChange={(e) => { setEmail(e.target.value); setActiveDemo(null); }}
+                    />
                 </div>
                 <div className="space-y-1.5">
                     <div className="flex items-center justify-between">
@@ -135,7 +228,15 @@ export default function LoginForm() {
                             Forgot password?
                         </Link>
                     </div>
-                    <Input name="password" type="password" placeholder="••••••••" required autoComplete="current-password" />
+                    <Input
+                        name="password"
+                        type="password"
+                        placeholder="••••••••"
+                        required
+                        autoComplete="current-password"
+                        value={password}
+                        onChange={(e) => { setPassword(e.target.value); setActiveDemo(null); }}
+                    />
                 </div>
                 <Button type="submit" className="w-full h-10" disabled={busy}>
                     {loading

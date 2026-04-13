@@ -2,7 +2,7 @@ export interface IUser {
   id: string;
   name: string;
   email: string;
-  role: "USER" | "MANAGER" | "ADMIN" | "MODERATOR" | "SUPPORT_AGENT";
+  role: "USER" | "MANAGER" | "ADMIN" | "MODERATOR";
   profileImage?: string;
 }
 

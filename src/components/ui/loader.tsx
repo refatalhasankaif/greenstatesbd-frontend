@@ -8,7 +8,7 @@ const Loader = () => {
       <div className="flex flex-col items-center gap-6">
 
         <div className="flex items-center gap-2">
-          <Image src="/logo.png" alt="GreenStatesBD" width={32} height={32} />
+          <Image src="/logo.png" alt="GreenStatesBD" width={32} height={32} unoptimized />
           <span className="text-lg font-semibold">GreenStatesBD</span>
         </div>
 

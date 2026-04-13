@@ -243,6 +243,9 @@ export default function UploadPage() {
                                             fill
                                             className="object-cover"
                                             sizes="(max-width: 640px) 100vw, 576px"
+                                            onError={(e) => {
+                                                console.error('Failed to load gallery image:', img.imageUrl);
+                                            }}
                                         />
                                     </div>
 

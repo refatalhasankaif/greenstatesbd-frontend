@@ -1,4 +1,4 @@
-// src/app/not-found.tsx
+
 
 import Link from "next/link";
 import Image from "next/image";
@@ -14,6 +14,8 @@ export default function NotFoundPage() {
                 width={64}
                 height={64}
                 className="mb-6"
+                priority
+                unoptimized
             />
 
             <h1 className="text-5xl font-bold tracking-tight">404</h1>

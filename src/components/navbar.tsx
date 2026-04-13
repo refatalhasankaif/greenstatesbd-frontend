@@ -6,33 +6,27 @@ import Image from "next/image";
 import { useState, useRef, useEffect, useSyncExternalStore } from "react";
 import {
     Home, Compass, Sparkles, Building2, LifeBuoy, LayoutDashboard,
-    ChevronDown, Menu, MessageSquare, Flag, LogOut, UserCircle,
+    ChevronDown, Menu, Flag, LogOut, UserCircle, Gavel,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "./ui/theme-switcher";
 import { IUser } from "@/types/auth";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
-// ─────────────────────────────────────────────
-// User store backed by localStorage
-// ─────────────────────────────────────────────
+
 const USER_STORE_EVENT = "user-store-update";
 
-/**
- * Module-level cache so getStoredUser returns the same object
- * reference when data hasn't changed — required by useSyncExternalStore.
- */
-let _cachedRaw: string | null | undefined = undefined; // undefined = not yet read
+let _cachedRaw: string | null | undefined = undefined;
 let _cachedUser: IUser | null = null;
 
 function getStoredUser(): IUser | null {
     if (typeof window === "undefined") return null;
     try {
-        const raw = localStorage.getItem("user"); // null if missing
-        // ✅ Same raw string → return the exact same object reference
+        const raw = localStorage.getItem("user"); 
+
         if (raw === _cachedRaw) return _cachedUser;
 
         _cachedRaw = raw;
@@ -71,21 +65,14 @@ function subscribeToUserStore(callback: () => void): () => void {
     };
 }
 
-/** Call after writing/deleting user in localStorage so the navbar re-syncs. */
 export function notifyUserStore() {
-    _cachedRaw = undefined; // bust the cache so the next snapshot re-parses
+    _cachedRaw = undefined;
     window.dispatchEvent(new Event(USER_STORE_EVENT));
 }
 
-// ─────────────────────────────────────────────
-// Role helpers
-// ─────────────────────────────────────────────
 const PRO_ROLES = ["ADMIN", "MANAGER", "MODERATOR", "SUPPORT_AGENT"];
 const hasProAccess = (role?: string) => (role ? PRO_ROLES.includes(role) : false);
 
-// ─────────────────────────────────────────────
-// Avatar
-// ─────────────────────────────────────────────
 function Avatar({ user, size = 32 }: { user: IUser; size?: number }) {
     const initials = (user.name ?? "U")
         .split(" ")
@@ -94,7 +81,9 @@ function Avatar({ user, size = 32 }: { user: IUser; size?: number }) {
         .join("")
         .toUpperCase();
 
-    if (user.profileImage) {
+    const [imageError, setImageError] = useState(false);
+
+    if (user.profileImage && !imageError) {
         return (
             <Image
                 src={user.profileImage}
@@ -103,6 +92,8 @@ function Avatar({ user, size = 32 }: { user: IUser; size?: number }) {
                 height={size}
                 className="rounded-full object-cover shrink-0"
                 style={{ width: size, height: size }}
+                unoptimized
+                onError={() => setImageError(true)}
             />
         );
     }
@@ -116,9 +107,6 @@ function Avatar({ user, size = 32 }: { user: IUser; size?: number }) {
     );
 }
 
-// ─────────────────────────────────────────────
-// Navbar
-// ─────────────────────────────────────────────
 const Navbar = ({ className }: { className?: string }) => {
     const [openMenu, setOpenMenu] = useState<string | null>(null);
     const [mobileOpen, setMobileOpen] = useState<string | null>(null);
@@ -175,18 +163,19 @@ const Navbar = ({ className }: { className?: string }) => {
             ],
         },
         { title: "Properties", icon: <Building2 size={16} />, url: "/properties" },
-        { title: "Support", icon: <LifeBuoy size={16} />, url: "/support" },
-        { title: "Dashboard", icon: <LayoutDashboard size={16} />, url: "/dashboard" },
         ...(user && hasProAccess(user.role)
-            ? [{ title: "Pro Panel", icon: <Sparkles size={16} />, url: "/pro-panel" }]
+            ? [{ title: "Dashboard", icon: <LayoutDashboard size={16} />, url: "/dashboard" }]
             : []),
         { title: "AI", icon: <Sparkles size={16} />, url: "/ai" },
     ];
 
     const profileLinks = [
         { title: "Profile", href: "/profile", icon: <UserCircle size={15} /> },
-        { title: "Chats", href: "/chats", icon: <MessageSquare size={15} /> },
+        { title: "My Properties", href: "/my-properties", icon: <Building2 size={15} /> },
         { title: "Reports", href: "/reports", icon: <Flag size={15} /> },
+        ...(user && user.role === "USER"
+            ? [{ title: "See Bids", href: "/bids", icon: <Gavel size={15} /> }]
+            : []),
     ];
 
     return (
@@ -196,7 +185,14 @@ const Navbar = ({ className }: { className?: string }) => {
                 {/* Left */}
                 <div className="flex items-center gap-6">
                     <Link href="/" className="flex items-center gap-2 shrink-0">
-                        <Image src="/logo.png" alt="logo" width={32} height={32} />
+                        <Image 
+                          src="/logo.png" 
+                          alt="logo" 
+                          width={32} 
+                          height={32}
+                          priority
+                          unoptimized
+                        />
                         <span className="font-semibold">GreenStatesBD</span>
                     </Link>
 
@@ -314,6 +310,7 @@ const Navbar = ({ className }: { className?: string }) => {
                         </SheetTrigger>
                         <SheetContent side="right" className="w-72 p-0 overflow-y-auto">
                             <SheetTitle className="sr-only">Mobile Navigation Menu</SheetTitle>
+                            <SheetDescription className="sr-only">Navigate through the GreenStatesBD platform menu</SheetDescription>
                             <div className="flex flex-col p-5 gap-1">
                                 {user && (
                                     <div className="flex items-center gap-3 pb-4 mb-2 border-b">

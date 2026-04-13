@@ -16,13 +16,11 @@ export const useInfiniteBlogs = () => {
             setLoading(true);
 
             const res = await apiFetch<{
-                data: {
-                    data: IBlog[];
-                    meta: { totalPage: number };
-                };
+                data: IBlog[];
+                meta: { totalPage: number };
             }>(`/blogs?page=${page}&limit=5`);
 
-            const newBlogs = res.data.data;
+            const newBlogs = res.data;
 
             setBlogs((prev) => {
                 const map = new Map<string, IBlog>();
@@ -32,7 +30,7 @@ export const useInfiniteBlogs = () => {
 
             setPage((prev) => prev + 1);
 
-            if (page >= res.data.meta.totalPage) {
+            if (page >= res.meta.totalPage) {
                 setHasMore(false);
             }
 
@@ -44,7 +42,7 @@ export const useInfiniteBlogs = () => {
 
     useEffect(() => {
         loadMore();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, []);
 
     return {
