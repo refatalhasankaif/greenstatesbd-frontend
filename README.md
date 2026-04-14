@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GreenStatesBD Frontend
 
-## Getting Started
+A modern real estate bidding platform frontend built with Next.js and Tailwind CSS. This application focuses on delivering a fast, scalable, and interactive user experience for property exploration, bidding, and role-based dashboards.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![Page](https://i.ibb.co.com/SXMV1S0b/Screenshot-From-2026-04-14-06-54-24.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Live URLs
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| | Link |
+|---|---|
+| Frontend Live | https://greenstatesbd.vercel.app |
+| Backend Live | https://greenstatesbd-backend.onrender.com |
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Repositories
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| | Link |
+|---|---|
+| Frontend Repo | https://github.com/refatalhasankaif/greenstatesbd-frontend |
+| Backend Repo | https://github.com/refatalhasankaif/greenstatesbd-backend |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Next.js 16
+- TypeScript
+- Tailwind CSS
+- Shadcn UI
+- Firebase Authentication
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Features
+
+- Structured property browsing experience with detailed listing views.
+- Role-based dashboards for User, Admin, Moderator, and Manager.
+- Secure authentication using Firebase auth.
+- Optimized image gallery with modern layout and fast loading.
+- Blog editor with AI-assisted content generation.
+- Integrated AI assistant for in-app support and guidance.
+- Reporting and moderation interfaces for platform control.
+- Fully responsive design across desktop and mobile devices.
+
+---
